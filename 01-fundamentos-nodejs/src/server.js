@@ -21,7 +21,10 @@ import { routes } from "./routes.js";
 
 // HTTP Status Code
 
-
+//3 formas do front enviar infos:
+//Query Parameters: URL Stateful => Filtros, paginação, não-obrigatórios
+//Route Parameters: Identificação de recurso
+//Request Body: Envio de informações de um formulário (HTTPs)
 
 const server = http.createServer(async(req, res) => {
   //const method = req.method
@@ -42,3 +45,5 @@ const server = http.createServer(async(req, res) => {
 });
 
 server.listen(3333);
+
+
