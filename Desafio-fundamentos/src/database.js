@@ -49,8 +49,12 @@ export class Database {
       const rowIndex = this.#database[table].findIndex(row => row.id == id)
 
       if(rowIndex > -1){
-        this.#database[table][rowIndex] = {id, ...data}
+        const existingData = this.#database[table][rowIndex];
+        this.#database[table][rowIndex] = { ...existingData, ...data, id };
         this.#persist();
+        return true;
+      } else{
+        return false;
       }
     }
 
@@ -60,6 +64,22 @@ export class Database {
       if(rowIndex > -1){
         this.#database[table].splice(rowIndex, 1)
         this.#persist();
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    patch(table, id){
+      const rowIndex = this.#database[table].findIndex(row => row.id == id)
+
+      if(rowIndex > -1){
+        const task = this.#database[table][rowIndex];
+        task.completed_at = task.completed_at ? null : new Date().toLocaleString('pt-BR');
+        this.#persist();
+        return true;
+      } else {
+        return false;
       }
     }
   }
